@@ -46,7 +46,7 @@ fun checkMetro met =
                     | AREA (n1,m1) => checkName([n1] @ nn, m1)
                     | CONNECT (m1, m2) => (checkName(nn, m1)) andalso (checkName(nn, m2))
                     in checkName ([n], m) end
-    | CONNECT (n, m) => false
+    | CONNECT (n, m) => (checkMetro n) andalso (checkMetro m)
 
 fun seq(first : int, last : int) =
     if first > last
