@@ -24,12 +24,19 @@ int main()
 			perror("attach failed\n");
 			return 0;
 		}
-		
+
 		if(strcmp((char*)shmaddr, "") != 0) // when string is not empty, print the string
 		{
 			printf("%s", (char*)shmaddr);
 			if (strcmp((char*)shmaddr, "exit\n") == 0) // when read "exit" return
+			{
+				if(shmdt(shmaddr) == -1) // detach memory
+				{
+					perror("detach failedn");
+					return 0;
+				}
 				break;
+			}
 			strcpy((char*)shmaddr, ""); // make string empty after print
 		}
 		if(shmdt(shmaddr) == -1) // detach memory
@@ -45,4 +52,3 @@ int main()
 	}
 	return 0;
 }
-
