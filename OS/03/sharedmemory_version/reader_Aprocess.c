@@ -32,7 +32,7 @@ int main()
 			{
 				if(shmdt(shmaddr) == -1) // detach memory
 				{
-					perror("detach failedn");
+					perror("detach failed\n");
 					return 0;
 				}
 				break;
@@ -41,7 +41,7 @@ int main()
 		}
 		if(shmdt(shmaddr) == -1) // detach memory
 		{
-			perror("detach failedn");
+			perror("detach failed\n");
 			return 0;
 		}
 	}

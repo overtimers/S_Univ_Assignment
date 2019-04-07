@@ -45,10 +45,5 @@ int main()
 			return 0;
 		}
 	}
-	if (shmctl(shmid, IPC_RMID, 0) == -1) // remove shared memory
-	{
-		perror("remove failed\n");
-		return 0;
-	}
 	return 0;
 }
