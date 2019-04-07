@@ -15,15 +15,16 @@ int main()
 	int fd;
 	int ret,i;
 
-	if(access(PIPENAME, F_OK) != 0)
+	if(access(PIPENAME, F_OK) != 0) // create named pipe if it doesn't exist
 	{
 		if(mkfifo(PIPENAME, 0666) < 0)
 		{
 			printf("pipe create failed\n");
+			return 0;
 		}
 	}
 
-	fd = open(PIPENAME, O_WRONLY);
+	fd = open(PIPENAME, O_WRONLY); // open named pipe
 	if(fd < 0)
 	{
 		printf("Open failed\n");
@@ -32,17 +33,17 @@ int main()
 
 	while (1)
 	{
-		fgets(msg, MSG_SIZE, stdin);
-		ret = write(fd, msg, sizeof(msg));
+		fgets(msg, MSG_SIZE, stdin); // get message from stdin
+		ret = write(fd, msg, sizeof(msg)); // write message to pipe
 		if (ret < 0)
 		{
 			printf("Write failed\n");
-			return 0;
+			break;
 		}
-		if (strcmp(msg, "exit\n")==0)
+		if (strcmp(msg, "exit\n")==0) // exit when the message is "exit"
 			break;
 	}
-	unlink(PIPENAME);
+	unlink(PIPENAME); // unlink before return
 	return 0;
 }
 

@@ -15,9 +15,9 @@ int main()
 	int fd;
 	pid_t pid;
 
-	ret = access(PIPENAME, F_OK);
+	ret = access(PIPENAME, F_OK); //check named pipe exists
 
-	if (ret != 0)
+	if (ret != 0) // if named pipe doesn't exist, make it
 		ret = mkfifo(PIPENAME, 0666);
 
 	if (ret < 0)
@@ -26,7 +26,7 @@ int main()
 		return 0;
 	}
 
-	fd = open(PIPENAME, O_RDWR);
+	fd = open(PIPENAME, O_RDWR); // open named pipe
 
 	if (fd < 0)
 	{
@@ -36,17 +36,17 @@ int main()
 
 	while(1)
 	{
-		ret = read(fd, msg, sizeof(msg));
+		ret = read(fd, msg, sizeof(msg)); //read message from pipe
 		if(ret < 0)
 		{
 			printf("Read failed\n");
-			return 0;
+			break;
 		}
 		printf("%s", msg);
-		if(strcmp(msg, "exit\n") == 0)
+		if(strcmp(msg, "exit\n") == 0) // if read "exit" exit
 			break;
 	}
-	unlink(PIPENAME);
+	unlink(PIPENAME); // unlink before return
 	return 0;
 }
 
