@@ -5,7 +5,7 @@ int main()
 {
 	pid_t child1, child2;
 	int stat1, stat2;
-	
+
 	if ((child1 = fork()) == 0) //fork child1
 	{
 		execl("./child1", NULL); //execute child1
@@ -26,5 +26,3 @@ int main()
 	}
 	return 0;
 }
-
-
