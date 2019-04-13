@@ -4,7 +4,7 @@
 
 #define ARGUMENT_NUMBER 20
 
-long long result[ARGUMENT_NUMBER] = {0,};
+long long result[ARGUMENT_NUMBER] = {0,}; // array for save results
 
 void *ThreadFunc(void *n)
 {
@@ -27,11 +27,14 @@ int main(void)
 	for (i=0; i<ARGUMENT_NUMBER; i++)
 	{
 		argument[i] = i;
+		
+		//create thread and call ThreadFunc
 		pthread_create(&threadID[i], NULL, ThreadFunc, (void*)&argument[i]);
 	}
 	printf("Main Thread is waiting for Child Thread!\n");
 	for (i=0; i<ARGUMENT_NUMBER; i++)
 	{
+		//wait for threads
 		pthread_join(threadID[i], NULL);
 	}
 	for (i=0; i<ARGUMENT_NUMBER; i++)
