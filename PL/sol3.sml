@@ -96,17 +96,5 @@ fun whosWinner(t) =
       whosWinner( MATCH (whosWinner(MATCH m1), whosWinner(MATCH m2)))
   | PLAYER p => PLAYER p
 
-  val winner = whosWinner(MATCH(PLAYER("s", ref s),
+val winner = whosWinner(MATCH(PLAYER("s", ref s),
   MATCH(PLAYER("rp", ref rp), PLAYER("r", ref r))));
-  val rspwinner = whosWinner(MATCH(
-    MATCH(PLAYER("rp", ref rp), PLAYER("sr", ref sr)),
-    MATCH(PLAYER("ps", ref ps), PLAYER("srp", ref srp)) ))
-  val finalwinner = whosWinner(
-    MATCH(
-      MATCH(
-        MATCH(PLAYER("r",ref r), PLAYER("s", ref s)),
-        PLAYER("p", ref p)
-        ),
-      MATCH(
-        MATCH(PLAYER("rp", ref rp), PLAYER("sr", ref sr)),
-        MATCH(PLAYER("ps", ref ps), PLAYER("srp", ref srp)) )))
