@@ -67,10 +67,9 @@ fun print_rps (r1) =
   else if r1 = SCISSORS then print("SCISSORS\n")
   else print("PAPER\n")
 
-fun wins (r1, r2) =
-  let
-    val Cons(rsp1, func1) = !r1
-    val Cons(rsp2, func2) = !r2
+fun wins (s1, s2) =
+  let val rsp1 = next(s1)
+      val rsp2 = next(s2)
   in
     if (rsp1 = ROCK andalso rsp2 = SCISSORS)
       orelse (rsp1 = SCISSORS andalso rsp2 = PAPER)
@@ -80,7 +79,7 @@ fun wins (r1, r2) =
       orelse (rsp2 = SCISSORS andalso rsp1 = PAPER)
       orelse (rsp2 = PAPER andalso rsp1 = ROCK)
     then false
-    else wins(ref (func1()), ref (func2()))
+    else wins(s1, s2)
   end
 
 fun whosWinner(t) =
@@ -90,14 +89,24 @@ fun whosWinner(t) =
           then PLAYER(p1,s1)
           else PLAYER(p2,s2)
   | MATCH (MATCH m1, PLAYER p1) =>
-      let val a = print("MP\n");
-      in whosWinner( MATCH (whosWinner(MATCH m1), PLAYER p1))
-      end
+      whosWinner( MATCH (whosWinner(MATCH m1), PLAYER p1))
   | MATCH (PLAYER p1, MATCH m1) =>
-      let val a = print("PM\n");
-      in whosWinner( MATCH (PLAYER p1, whosWinner(MATCH m1)))
-      end
+      whosWinner( MATCH (PLAYER p1, whosWinner(MATCH m1)))
+  | MATCH (MATCH m1, MATCH m2) =>
+      whosWinner( MATCH (whosWinner(MATCH m1), whosWinner(MATCH m2)))
   | PLAYER p => PLAYER p
 
   val winner = whosWinner(MATCH(PLAYER("s", ref s),
   MATCH(PLAYER("rp", ref rp), PLAYER("r", ref r))));
+  val rspwinner = whosWinner(MATCH(
+    MATCH(PLAYER("rp", ref rp), PLAYER("sr", ref sr)),
+    MATCH(PLAYER("ps", ref ps), PLAYER("srp", ref srp)) ))
+  val finalwinner = whosWinner(
+    MATCH(
+      MATCH(
+        MATCH(PLAYER("r",ref r), PLAYER("s", ref s)),
+        PLAYER("p", ref p)
+        ),
+      MATCH(
+        MATCH(PLAYER("rp", ref rp), PLAYER("sr", ref sr)),
+        MATCH(PLAYER("ps", ref ps), PLAYER("srp", ref srp)) )))
