@@ -96,5 +96,5 @@ fun whosWinner(t) =
       whosWinner( MATCH (whosWinner(MATCH m1), whosWinner(MATCH m2)))
   | PLAYER p => PLAYER p
 
-  val winner = whosWinner(MATCH(PLAYER("s", ref s),
+val winner = whosWinner(MATCH(PLAYER("s", ref s),
   MATCH(PLAYER("rp", ref rp), PLAYER("r", ref r))));
