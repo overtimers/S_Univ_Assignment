@@ -42,6 +42,7 @@ datatype 'a strategy = Cons of 'a * (unit -> 'a strategy)
 datatype tournament =
     PLAYER of name * (RSP strategy ref)
   | MATCH of tournament * tournament
+
 fun onlyOne(one:RSP) = Cons(one, fn() => onlyOne(one))
 fun alterTwo(one: RSP, two:RSP) = Cons(one, fn() => alterTwo(two, one))
 fun alterThree(one:RSP, two:RSP, three:RSP) =
@@ -61,11 +62,6 @@ fun next(strategyRef) =
     strategyRef := func();
     rsp
   end
-
-fun print_rps (r1) =
-  if r1 = ROCK then print("ROCK\n")
-  else if r1 = SCISSORS then print("SCISSORS\n")
-  else print("PAPER\n")
 
 fun wins (s1, s2) =
   let val rsp1 = next(s1)
