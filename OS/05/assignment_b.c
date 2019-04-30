@@ -66,7 +66,7 @@ int main()
 		}
 		//detach shared memory
 		shmdt(shmaddr);
-		printf("process num : %d, local count : %d\n", 1, count);
+		printf("process num : 1, local count : %d\n", count);
 		return 0;
 	}
 	else if ( (pid2 = fork()) < 0)
@@ -107,9 +107,9 @@ int main()
 			return 0;
 		}
 		waitpid(pid1, &status, 0);
-		printf("child %d finish!\n", pid1);
+		printf("child finish!\n");
 		waitpid(pid2, &status, 0);
-		printf("child %d finish!\n", pid2);
+		printf("child finish!\n");
 		//attach shared memory
 		shmaddr = shmat(shmid, (void*)0, NULL);
 		msg = (struct message *) shmaddr;

@@ -1,10 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <pthread.h>
 #include <atomic>
 
 #define COUNTING_NUMBER 20000000
-int critical_section_variable = 0;
+int critical_section_variable(0);
 std::atomic_int turn(0);
 std::atomic_int flag[2];
 
@@ -36,8 +36,8 @@ int main(void)
 {
 	pthread_t p1, p2;
 	int parameter[2] = {0, 1};
-	flag[0] = 0;
-	flag[1] = 0;
+	flag[0]=0;
+	flag[1]=0;
 
 	pthread_create(&p1, NULL, func, (void*)&parameter[0]);
 	pthread_create(&p2, NULL, func, (void*)&parameter[1]);
