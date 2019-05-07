@@ -37,6 +37,9 @@ int main()
 	for (i=0; i<2; i++)
 		pthread_join(writer_threads[i], NULL);
 
+	sem_destroy(&reader_sem);
+	sem_destroy(&writer_sem);
+
 	return 0;
 }
 
