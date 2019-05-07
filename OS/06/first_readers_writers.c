@@ -71,12 +71,10 @@ void* reader()
 	{
 		usleep(300);
 		// lock
-		sem_wait(&writer_sem);
 		sem_wait(&reader_sem);
 		// critical section
 		printf("cur_count: %d\tcur_writer: %d\n", cur_count, cur_writer);
 		// unlock
-		sem_post(&writer_sem);
 		sem_post(&reader_sem);
 	}
 }
